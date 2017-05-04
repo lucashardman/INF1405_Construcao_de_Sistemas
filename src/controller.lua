@@ -2,6 +2,7 @@ local tiled = require "com.ponywolf.ponytiled"
 local physics = require "physics"
 local json = require "json"
 local character = require "character"
+local item = require "items"
 
 local M = {}
 
@@ -55,6 +56,14 @@ local function gameController( sheet_hero )
 	physics.addBody( arvore2, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 	local arvore3 = map:findObject("arvore3")
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0.3 } )
+
+	-- Create and respaw all items
+	local respawItems = item.generateItem()
+
+	-- Add items to physics
+	for count = 1, respawItems.numChildren do
+		physics.addBody(respawItems[count])
+	end
 end
 
 M.gameController = gameController
