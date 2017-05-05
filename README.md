@@ -10,7 +10,7 @@ Pontifícia Universidade Católica do Rio de Janeiro
 2017.1
 
 #### Professor:
-Edmundo Torreo
+Edmundo Torreão
 
 #### Linguagem:
 Lua
