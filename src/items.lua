@@ -3,7 +3,7 @@ local function generateItem()
 
 	local itemsGroup = display.newGroup()
 
-
+	-- Load POTIONS sprite sheet to sheetPotions
 	local sheetOptionsItems
 	sheetOptionsItems =
 	{
@@ -11,28 +11,38 @@ local function generateItem()
 	    height = 32, -- height of EACH FRAME
 	    numFrames = 256 -- number of frames
 	}
-	local skin1 = graphics.newImageSheet( "images/items/potions.png", sheetOptionsItems )
+	local sheetPotions = graphics.newImageSheet( "images/items/potions.png", sheetOptionsItems )
+	
+	-- Lista de poções:
+	-- - Poção verde grande -> recupera muito HP
+	-- - Poção verde media -> recupera medio HP
+	-- - Poção verde pequena -> recupera pouco HP
+	-- - Poção rosa -> aumenta velocidade de movimento
+	-- - Poção rosa grande -> aumenta mais ainda a velocidade de movimento
+	-- - Poção rosa extendida -> aumenta velocidade de movimento por mais tempo
+	-- - Poção azul grande -> recupera muito SP
+	-- - Poção azul media -> recupera medio SP
+	-- - Poção azul pequena -> recupera pouco SP
+	-- - Poção amarela -> aumenta ATK
+	-- - Poção vermelha -> aumenta DEF
+	
+
 	-- walking right sequences table
-	local sequences_jaca = {
+	local framePocaoVerdeGrande = {
 	    -- consecutive frames sequence
 	    {
-	        name = "jaca",
-	        frames = { 10 },
-	        time = 400
+	        name = "Poção Verde Grande",
+	        frames = { 69 }
 	    }
 	}
-	local walkingUp = display.newSprite(skin1, sequences_jaca)
-	walkingUp.isVisible = true
-	walkingUp.x = 300
-	walkingUp.y = 300
 
 	for count = 1, 10 do
-		local itemDiamond = display.newImage("images/items/gemRedStroked.png")
-
-		itemDiamond.x = math.random(0 + itemDiamond.width/2, 1024 - itemDiamond.width/2 )
-		itemDiamond.y = math.random(0 + itemDiamond.height/2, 768 - itemDiamond.height/2 )
-		
-		itemsGroup:insert(itemDiamond)
+	
+		local pocaoVerdeGrande = display.newSprite(sheetPotions, framePocaoVerdeGrande)
+		pocaoVerdeGrande.isVisible = true
+		pocaoVerdeGrande.x = math.random(0 + pocaoVerdeGrande.width/2, 1024 - pocaoVerdeGrande.width/2 )
+		pocaoVerdeGrande.y = math.random(0 + pocaoVerdeGrande.height/2, 768 - pocaoVerdeGrande.height/2 )
+		itemsGroup:insert(pocaoVerdeGrande)
 	end
 
 	return itemsGroup
