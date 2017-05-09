@@ -27,12 +27,93 @@ local function generateItem()
 	-- - Poção vermelha -> aumenta DEF
 	
 
-	-- walking right sequences table
+	-- Choosing frame from the png file
+
 	local framePocaoVerdeGrande = {
 	    -- consecutive frames sequence
 	    {
 	        name = "Poção Verde Grande",
 	        frames = { 69 }
+	    }
+	}
+
+	local framePocaoVerdeMedia = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Verde Media",
+	        frames = { 85 }
+	    }
+	}
+
+	local framePocaoVerdePequena = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Verde Pequena",
+	        frames = { 21 }
+	    }
+	}
+
+	local framePocaoRosa = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Rosa",
+	        frames = { 173 }
+	    }
+	}
+
+	local framePocaoRosaGrande = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Rosa Grande",
+	        frames = { 237 }
+	    }
+	}
+
+	local framePocaoRosaExtendida = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Rosa Extendida",
+	        frames = { 189 }
+	    }
+	}
+
+	local framePocaoAzulGrande = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Azul Grande",
+	        frames = { 72 }
+	    }
+	}
+
+	local framePocaoAzulMedia = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Azul Media",
+	        frames = { 88 }
+	    }
+	}
+
+	local framePocaoAzulPequena = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Azul Pequena",
+	        frames = { 24 }
+	    }
+	}
+
+	local framePocaoAmarela = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Amarela",
+	        frames = { 228 }
+	    }
+	}
+
+	local framePocaoVermelha = {
+	    -- consecutive frames sequence
+	    {
+	        name = "Poção Vermelha",
+	        frames = { 226 }
 	    }
 	}
 
