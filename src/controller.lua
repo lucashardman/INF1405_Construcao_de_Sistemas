@@ -35,15 +35,29 @@ local function gameController( sheet_hero )
 	-- hero[4] means walk down
 
 	local hero = character.initializeChar(sheet_hero)
+	hero.myName = "hero"
+
+	hero.speed = 2
+	hero.HP = 100
+	hero.maxHP = 100
+	hero.SP = 50
+	hero.maxSP = 50
+	hero.atk = 30
+	hero.def = 30
+
 	physics.addBody( hero, "dynamic", { density=3.0, friction=0.5, bounce=0.3 } )
 	hero.isFixedRotation = true
 
 	-- Adding borders to the map
 	local borderRight = map:findObject("borderRight")
+	borderRight.myName = "borderRight"
 	local borderLeft = map:findObject("borderLeft")
+	borderLeft.myName = "borderLeft"
 	local borderUp = map:findObject("borderUp")
+	borderUp.myName = "borderUp"
 	local borderDown = map:findObject("borderDown")
-	
+	borderDown.myName = "borderDown"
+
 	physics.addBody( borderRight, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 	physics.addBody( borderLeft, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 	physics.addBody( borderUp, "static", { density=3.0, friction=0.5, bounce=0.3 } )
@@ -51,10 +65,13 @@ local function gameController( sheet_hero )
 
 	-- Adding Trees
 	local arvore1 = map:findObject("arvore1")
+	arvore1.myName = "arvore1"
 	physics.addBody( arvore1, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 	local arvore2 = map:findObject("arvore2")
+	arvore2.myName = "arvore2"
 	physics.addBody( arvore2, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 	local arvore3 = map:findObject("arvore3")
+	arvore3.myName = "arvore3"
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0.3 } )
 
 	-- Create and respaw all items
@@ -64,6 +81,28 @@ local function gameController( sheet_hero )
 	for count = 1, respawItems.numChildren do
 		physics.addBody(respawItems[count])
 	end
+
+	hero.HP = 0 -- teste
+	local function onLocalCollision( self, event )
+ 
+	    if ( event.phase == "began" ) then
+	    	if ( event.other.myName == "pocaoVerdeGrande" ) then
+	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
+	    			hero.HP = hero.maxHP
+	    		else
+	    			hero.HP = hero.HP + event.other.effect
+	    		end
+	    		event.other:removeSelf()
+	    	end
+	        print( self.myName .. ": collision began with " .. event.other.myName )
+	    elseif ( event.phase == "ended" ) then
+	        print( self.myName .. ": collision ended with " .. event.other.myName )
+    	end
+    	print( "HP updated: " .. hero.HP )
+	end
+ 
+	hero.collision = onLocalCollision
+	hero:addEventListener( "collision" )
 end
 
 M.gameController = gameController

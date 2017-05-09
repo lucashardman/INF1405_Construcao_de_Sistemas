@@ -40,6 +40,8 @@ local function generateItem()
 	
 		local pocaoVerdeGrande = display.newSprite(sheetPotions, framePocaoVerdeGrande)
 		pocaoVerdeGrande.isVisible = true
+		pocaoVerdeGrande.myName = "pocaoVerdeGrande"
+		pocaoVerdeGrande.effect = 60
 		pocaoVerdeGrande.x = math.random(0 + pocaoVerdeGrande.width/2, 1024 - pocaoVerdeGrande.width/2 )
 		pocaoVerdeGrande.y = math.random(0 + pocaoVerdeGrande.height/2, 768 - pocaoVerdeGrande.height/2 )
 		itemsGroup:insert(pocaoVerdeGrande)
