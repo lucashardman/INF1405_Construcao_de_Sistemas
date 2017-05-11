@@ -82,10 +82,11 @@ local function gameController( sheet_hero )
 		physics.addBody(respawItems[count])
 	end
 
-	--hero.HP = 0 -- teste
+	hero.HP = 0 -- teste
 	local function onLocalCollision( self, event )
  
 	    if ( event.phase == "began" ) then
+	    	
 	    	if ( event.other.myName == "pocaoVerdeGrande" ) then
 	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
 	    			hero.HP = hero.maxHP
@@ -93,12 +94,32 @@ local function gameController( sheet_hero )
 	    			hero.HP = hero.HP + event.other.effect
 	    		end
 	    		event.other:removeSelf()
+	    		print( "HP updated: " .. hero.HP )
 	    	end
+	    	if ( event.other.myName == "pocaoVerdeMedia" ) then
+	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
+	    			hero.HP = hero.maxHP
+	    		else
+	    			hero.HP = hero.HP + event.other.effect
+	    		end
+	    		event.other:removeSelf()
+	    		print( "HP updated: " .. hero.HP )
+	    	end
+	    	if ( event.other.myName == "pocaoVerdePequena" ) then
+	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
+	    			hero.HP = hero.maxHP
+	    		else
+	    			hero.HP = hero.HP + event.other.effect
+	    		end
+	    		event.other:removeSelf()
+	    		print( "HP updated: " .. hero.HP )
+	    	end
+
+
 	        print( self.myName .. ": collision began with " .. event.other.myName )
 	    elseif ( event.phase == "ended" ) then
 	        print( self.myName .. ": collision ended with " .. event.other.myName )
 		end
-		print( "HP updated: " .. hero.HP )
 	end
  
 	hero.collision = onLocalCollision
