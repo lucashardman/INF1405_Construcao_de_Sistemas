@@ -37,7 +37,8 @@ local function gameController( sheet_hero )
 	local hero = character.initializeChar(sheet_hero)
 	hero.myName = "hero"
 
-	hero.speed = 2
+	hero.speed = 2 -- Current speed.
+	hero.baseSpeed = 2 -- Normal speed. Used to fix a bug that happens when speed is updated.
 	hero.HP = 100
 	hero.maxHP = 100
 	hero.SP = 50
@@ -82,48 +83,12 @@ local function gameController( sheet_hero )
 		physics.addBody(respawItems[count])
 	end
 
-	hero.HP = 0 -- teste
-	local function onLocalCollision( self, event )
- 
-	    if ( event.phase == "began" ) then
-	    	
-	    	if ( event.other.myName == "pocaoVerdeGrande" ) then
-	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
-	    			hero.HP = hero.maxHP
-	    		else
-	    			hero.HP = hero.HP + event.other.effect
-	    		end
-	    		event.other:removeSelf()
-	    		print( "HP updated: " .. hero.HP )
-	    	end
-	    	if ( event.other.myName == "pocaoVerdeMedia" ) then
-	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
-	    			hero.HP = hero.maxHP
-	    		else
-	    			hero.HP = hero.HP + event.other.effect
-	    		end
-	    		event.other:removeSelf()
-	    		print( "HP updated: " .. hero.HP )
-	    	end
-	    	if ( event.other.myName == "pocaoVerdePequena" ) then
-	    		if ( hero.HP + event.other.effect >= hero.maxHP) then
-	    			hero.HP = hero.maxHP
-	    		else
-	    			hero.HP = hero.HP + event.other.effect
-	    		end
-	    		event.other:removeSelf()
-	    		print( "HP updated: " .. hero.HP )
-	    	end
-
-
-	        print( self.myName .. ": collision began with " .. event.other.myName )
-	    elseif ( event.phase == "ended" ) then
-	        print( self.myName .. ": collision ended with " .. event.other.myName )
-		end
-	end
- 
-	hero.collision = onLocalCollision
-	hero:addEventListener( "collision" )
+	character = item.itemsPickUp(hero, character)
+	--item.getHeroUpdate(hero)
+	--hero.collision = onLocalCollision
+	--hero = item.getHeroUpdate
+	--print ("AAAAAAAAAAAAAAAA: "..hero.HP)
+	
 end
 
 M.gameController = gameController

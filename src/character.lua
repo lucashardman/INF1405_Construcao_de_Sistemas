@@ -5,12 +5,12 @@ local M = {}
 -- allowing it to go up, down, right and 	--
 -- left on the map 							--
 ----------------------------------------------
-local function characterController (characterGroup)
+local function characterController (characterGroup, speed)
 
 
 	motionx = 0 -- Variable used to move horizontally
 	motiony = 0 -- Variable used to move vertically
-	speed = 2 -- Speed of movement of the character
+	--speed = 2 -- Speed of movement of the character
 
 	-- Called when a key event has been received
 	local function onKeyEvent( event )
@@ -97,6 +97,7 @@ local function characterController (characterGroup)
 		characterGroup.y = characterGroup.y + motiony
 	end
 	Runtime:addEventListener("enterFrame", movePlayer)
+	return characterGroup
 end
 
 local function initializeChar (sheet_hero)
@@ -162,11 +163,12 @@ local function initializeChar (sheet_hero)
 	characterGroup.height = 40
 	characterGroup.width = 32
 
-	characterController(characterGroup)
+	characterController(characterGroup, 2)
 
 	return characterGroup
 end
 
 M.initializeChar = initializeChar
+M.characterController = characterController
 
 return M
