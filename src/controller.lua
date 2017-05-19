@@ -84,11 +84,7 @@ local function gameController( sheet_hero )
 	end
 
 	character = item.itemsPickUp(hero, character)
-	--item.getHeroUpdate(hero)
-	--hero.collision = onLocalCollision
-	--hero = item.getHeroUpdate
-	--print ("AAAAAAAAAAAAAAAA: "..hero.HP)
-	
+	hero:addEventListener( "collision" )	
 end
 
 M.gameController = gameController
