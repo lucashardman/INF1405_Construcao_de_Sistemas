@@ -428,8 +428,6 @@ function itemsPickUp(hero, character)
 		end
 	end
 	hero.collision = onLocalCollision
-	--hero:addEventListener( "collision" )
-	--heroAux = hero
 
 	return character
 end

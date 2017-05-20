@@ -4,6 +4,7 @@ local json = require "json"
 local character = require "character"
 local item = require "items"
 local status = require "status"
+local enemies = require "enemies"
 
 local M = {}
 
@@ -47,7 +48,7 @@ local function gameController( sheet_hero )
 	hero.atk = 30
 	hero.def = 30
 
-	physics.addBody( hero, "dynamic", { density=3.0, friction=0.5, bounce=0.3 } )
+	physics.addBody( hero, "dynamic", { density=3.0, friction=1, bounce=0.3 } )
 	hero.isFixedRotation = true
 
 	-- Adding borders to the map
@@ -60,21 +61,21 @@ local function gameController( sheet_hero )
 	local borderDown = map:findObject("borderDown")
 	borderDown.myName = "borderDown"
 
-	physics.addBody( borderRight, "static", { density=3.0, friction=0.5, bounce=0.3 } )
-	physics.addBody( borderLeft, "static", { density=3.0, friction=0.5, bounce=0.3 } )
-	physics.addBody( borderUp, "static", { density=3.0, friction=0.5, bounce=0.3 } )
-	physics.addBody( borderDown, "static", { density=3.0, friction=0.5, bounce=0.3 } )
+	physics.addBody( borderRight, "static", { density=3.0, friction=0.5, bounce=0 } )
+	physics.addBody( borderLeft, "static", { density=3.0, friction=0.5, bounce=0 } )
+	physics.addBody( borderUp, "static", { density=3.0, friction=0.5, bounce=0 } )
+	physics.addBody( borderDown, "static", { density=3.0, friction=0.5, bounce=0 } )
 
 	-- Adding Trees
 	local arvore1 = map:findObject("arvore1")
 	arvore1.myName = "arvore1"
-	physics.addBody( arvore1, "static", { density=3.0, friction=0.5, bounce=0.3 } )
+	physics.addBody( arvore1, "static", { density=3.0, friction=0.5, bounce=0 } )
 	local arvore2 = map:findObject("arvore2")
 	arvore2.myName = "arvore2"
-	physics.addBody( arvore2, "static", { density=3.0, friction=0.5, bounce=0.3 } )
+	physics.addBody( arvore2, "static", { density=3.0, friction=0.5, bounce=0 } )
 	local arvore3 = map:findObject("arvore3")
 	arvore3.myName = "arvore3"
-	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0.3 } )
+	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0 } )
 
 	-- Create and respaw all items
 	local respawItems = item.generateItem()
@@ -90,6 +91,8 @@ local function gameController( sheet_hero )
 
 	-- Creates status window
 	status.statusWindow(hero)
+
+	enemies.loadEnemies()
 	
 	-- Updates status window
 	local function updateStatusWindow( event )
