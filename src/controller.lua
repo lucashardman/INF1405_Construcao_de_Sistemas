@@ -3,6 +3,7 @@ local physics = require "physics"
 local json = require "json"
 local character = require "character"
 local item = require "items"
+local status = require "status"
 
 local M = {}
 
@@ -83,8 +84,19 @@ local function gameController( sheet_hero )
 		physics.addBody(respawItems[count])
 	end
 
+	-- Enables hero to pick up items
 	character = item.itemsPickUp(hero, character)
 	hero:addEventListener( "collision" )	
+
+	-- Creates status window
+	status.statusWindow(hero)
+	
+	-- Updates status window
+	local function updateStatusWindow( event )
+		status.update(hero)
+	end
+	Runtime:addEventListener( "enterFrame", updateStatusWindow )
+
 end
 
 M.gameController = gameController
