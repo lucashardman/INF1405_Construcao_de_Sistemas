@@ -2,6 +2,8 @@ local widget = require( "widget" )
 
 local M = {}
 
+local animationLopunny
+
 local function loadEnemies ()
 
 	local sheetPokemon =
@@ -164,18 +166,57 @@ local function loadEnemies ()
 	    }
 	}
 
-	local animationSkin1 = display.newSprite(pokemon, sequences_lopunnyDown)
-	animationSkin1.height = 64
-	animationSkin1.width = 64
-	animationSkin1.x = 150
-	animationSkin1.y = 420
+	local animationLopunnyDown = display.newSprite(pokemon, sequences_lopunnyDown)
+	animationLopunnyDown.height = 64
+	animationLopunnyDown.width = 64
+	animationLopunnyDown.x = 150
+	animationLopunnyDown.y = 420
+	animationLopunnyDown:scale(1.5,1.5)
+	animationLopunnyDown.isVisible = false
 
-	animationSkin1:play()
+	local animationLopunnyLeft = display.newSprite(pokemon, sequences_lopunnyLeft)
+	animationLopunnyLeft.height = 64
+	animationLopunnyLeft.width = 64
+	animationLopunnyLeft.x = 150
+	animationLopunnyLeft.y = 420
+	animationLopunnyLeft:scale(1.5,1.5)
+	animationLopunnyLeft.isVisible = false
+
+	local animationLopunnyRight = display.newSprite(pokemon, sequences_lopunnyRight)
+	animationLopunnyRight.height = 64
+	animationLopunnyRight.width = 64
+	animationLopunnyRight.x = 150
+	animationLopunnyRight.y = 420
+	animationLopunnyRight:scale(1.5,1.5)
+	animationLopunnyRight.isVisible = false
+
+	local animationLopunnyUp = display.newSprite(pokemon, sequences_lopunnyUp)
+	animationLopunnyUp.height = 64
+	animationLopunnyUp.width = 64
+	animationLopunnyUp.x = 150
+	animationLopunnyUp.y = 420
+	animationLopunnyUp:scale(1.5,1.5)
+	animationLopunnyUp.isVisible = false
+
+	animationLopunny = display.newGroup()
+	animationLopunny:insert(animationLopunnyDown)
+	animationLopunny:insert(animationLopunnyLeft)
+	animationLopunny:insert(animationLopunnyRight)
+	animationLopunny:insert(animationLopunnyUp)
 
 end
 
-local function generateEnemies ()
-	print ("oi")
+
+local function walk (animation)
+	animation[1].isVisible = true
+	animation[1]:play()
+end
+
+local function generateEnemies (enemy)
+	
+	if (enemy == "lopunny") then
+		walk(animationLopunny)
+	end
 end
 
 M.loadEnemies = loadEnemies

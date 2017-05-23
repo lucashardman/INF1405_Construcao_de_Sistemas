@@ -92,9 +92,13 @@ local function gameController( sheet_hero )
 	-- Creates status window
 	status.statusWindow(hero)
 
+	-- Load enemies from png image and convert into animation
 	enemies.loadEnemies()
+
+	-- Place enemies on maps
+	enemies.generateEnemies("lopunny")
 	
-	-- Updates status window
+	-- Updates status window (HP, SP, atk, def, exp ...)
 	local function updateStatusWindow( event )
 		status.update(hero)
 	end
