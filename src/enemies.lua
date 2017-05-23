@@ -2,9 +2,39 @@ local widget = require( "widget" )
 
 local M = {}
 
-local animationLopunny
+local function configSprite (down, left, right, up, group, x, y, scale)
 
-local function loadEnemies ()
+	down.x = x
+	down.y = y
+	down:scale(scale, scale)
+	down.isVisible = false
+
+	left.x = x
+	left.y = y
+	left:scale(scale, scale)
+	left.isVisible = false
+
+	right.x = x
+	right.y = y
+	right:scale(scale, scale)
+	right.isVisible = false
+
+	up.x = x
+	up.y = y
+	up:scale(scale, scale)
+	up.isVisible = false
+
+	group:insert(down)
+	group:insert(left)
+	group:insert(right)
+	group:insert(up)
+
+	return group
+end
+
+local function createEnemy (codX, codY, size, animation, mapCodX, mapCodY, scale)
+
+	local group
 
 	local sheetPokemon =
 	{
@@ -12,214 +42,184 @@ local function loadEnemies ()
 	    {
 	    
 	        {   -- lopunny walking down 1
-	            x = 80 + 0 * 27,
-	            y = 25 + 0 * 27,
-	            width = 27,
-	            height = 27
+	            x = codX + 0 * size,
+	            y = codY + 0 * size,
+	            width = size,
+	            height = size
 	        },
 
 		    {   -- lopunny walking down 2
-		        x = 80 + 1 * 27,
-		        y = 25 + 0 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 1 * size,
+		        y = codY + 0 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking down 3
-		        x = 80 + 2 * 27,
-		        y = 25 + 0 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 2 * size,
+		        y = codY + 0 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking down 4
-		        x = 80 + 3 * 27,
-		        y = 25 + 0 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 3 * size,
+		        y = codY + 0 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking left 1
-		        x = 80 + 0 * 27,
-		        y = 25 + 1 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 0 * size,
+		        y = codY + 1 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking left 2
-		        x = 80 + 1 * 27,
-		        y = 25 + 1 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 1 * size,
+		        y = codY + 1 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking left 3
-		        x = 80 + 2 * 27,
-		        y = 25 + 1 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 2 * size,
+		        y = codY + 1 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking left 4
-		        x = 80 + 3 * 27,
-		        y = 25 + 1 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 3 * size,
+		        y = codY + 1 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking right 1
-		        x = 80 + 0 * 27,
-		        y = 25 + 2 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 0 * size,
+		        y = codY + 2 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking right 2
-		        x = 80 + 1 * 27,
-		        y = 25 + 2 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 1 * size,
+		        y = codY + 2 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking right 3
-		        x = 80 + 2 * 27,
-		        y = 25 + 2 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 2 * size,
+		        y = codY + 2 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking right 4
-		        x = 80 + 3 * 27,
-		        y = 25 + 2 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 3 * size,
+		        y = codY + 2 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking up 1
-		        x = 80 + 0 * 27,
-		        y = 25 + 3 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 0 * size,
+		        y = codY + 3 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking up 2
-		        x = 80 + 1 * 27,
-		        y = 25 + 3 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 1 * size,
+		        y = codY + 3 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking up 3
-		        x = 80 + 2 * 27,
-		        y = 25 + 3 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 2 * size,
+		        y = codY + 3 * size,
+		        width = size,
+	            height = size
 		    },
 
 		    {   -- lopunny walking up 4
-		        x = 80 + 3 * 27,
-		        y = 25 + 3 * 27,
-		        width = 27,
-	            height = 27
+		        x = codX + 3 * size,
+		        y = codY + 3 * size,
+		        width = size,
+	            height = size
 		    }
 	    }
 	}
+
 	local pokemon = graphics.newImageSheet( "images/monsters/pokemon.png", sheetPokemon )
 
 	-- walking down sequences table
-	local sequences_lopunnyDown = {
+	local sequencesDown = {
 	    -- consecutive frames sequence
 	    {
-	        name = "lopunnyDown",
 	        frames = { 1,2,3,4 },
 	        time = 400
 	    }
 	}
 
 	-- walking left sequences table
-	local sequences_lopunnyLeft = {
+	local sequencesLeft = {
 	    -- consecutive frames sequence
 	    {
-	        name = "lopunnyLeft",
 	        frames = { 5,6,7,8 },
 	        time = 400
 	    }
 	}
 
 	-- walking right sequences table
-	local sequences_lopunnyRight = {
+	local sequencesRight = {
 	    -- consecutive frames sequence
 	    {
-	        name = "lopunnyRight",
 	        frames = { 9,10,11,12 },
 	        time = 400
 	    }
 	}
 
 	-- walking up sequences table
-	local sequences_lopunnyUp = {
+	local sequencesUp = {
 	    -- consecutive frames sequence
 	    {
-	        name = "lopunnyUp",
 	        frames = { 13,14,15,16 },
 	        time = 400
 	    }
 	}
 
-	local animationLopunnyDown = display.newSprite(pokemon, sequences_lopunnyDown)
-	animationLopunnyDown.height = 64
-	animationLopunnyDown.width = 64
-	animationLopunnyDown.x = 150
-	animationLopunnyDown.y = 420
-	animationLopunnyDown:scale(1.5,1.5)
-	animationLopunnyDown.isVisible = false
+	group = configSprite(
+		display.newSprite(pokemon, sequencesDown),
+		display.newSprite(pokemon, sequencesLeft),
+		display.newSprite(pokemon, sequencesRight),
+		display.newSprite(pokemon, sequencesUp),
+		animation, mapCodX, mapCodY, scale)
 
-	local animationLopunnyLeft = display.newSprite(pokemon, sequences_lopunnyLeft)
-	animationLopunnyLeft.height = 64
-	animationLopunnyLeft.width = 64
-	animationLopunnyLeft.x = 150
-	animationLopunnyLeft.y = 420
-	animationLopunnyLeft:scale(1.5,1.5)
-	animationLopunnyLeft.isVisible = false
-
-	local animationLopunnyRight = display.newSprite(pokemon, sequences_lopunnyRight)
-	animationLopunnyRight.height = 64
-	animationLopunnyRight.width = 64
-	animationLopunnyRight.x = 150
-	animationLopunnyRight.y = 420
-	animationLopunnyRight:scale(1.5,1.5)
-	animationLopunnyRight.isVisible = false
-
-	local animationLopunnyUp = display.newSprite(pokemon, sequences_lopunnyUp)
-	animationLopunnyUp.height = 64
-	animationLopunnyUp.width = 64
-	animationLopunnyUp.x = 150
-	animationLopunnyUp.y = 420
-	animationLopunnyUp:scale(1.5,1.5)
-	animationLopunnyUp.isVisible = false
-
-	animationLopunny = display.newGroup()
-	animationLopunny:insert(animationLopunnyDown)
-	animationLopunny:insert(animationLopunnyLeft)
-	animationLopunny:insert(animationLopunnyRight)
-	animationLopunny:insert(animationLopunnyUp)
+	return group
 
 end
 
-
-local function walk (animation)
+local function walk (animation, x, y)
 	animation[1].isVisible = true
 	animation[1]:play()
+	animation.x = 100 - x
+	animation.y = 100 - y
 end
 
-local function generateEnemies (enemy)
+local function generateEnemies (enemy, x, y, scale)
 	
 	if (enemy == "lopunny") then
-		walk(animationLopunny)
+		local animationLopunny = display.newGroup()
+		local animationLopunny = createEnemy(80, 25, 27, animationLopunny, x, y, scale)
+		walk(animationLopunny, x, y)
 	end
 end
 
-M.loadEnemies = loadEnemies
 M.generateEnemies = generateEnemies
 
 return M
