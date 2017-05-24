@@ -2,25 +2,19 @@ local widget = require( "widget" )
 
 local M = {}
 
-local function configSprite (down, left, right, up, group, x, y, scale)
+local function configSprite (down, left, right, up, scale)
 
-	down.x = x
-	down.y = y
+	local group = display.newGroup()
+
 	down:scale(scale, scale)
 	down.isVisible = false
 
-	left.x = x
-	left.y = y
 	left:scale(scale, scale)
 	left.isVisible = false
 
-	right.x = x
-	right.y = y
 	right:scale(scale, scale)
 	right.isVisible = false
 
-	up.x = x
-	up.y = y
 	up:scale(scale, scale)
 	up.isVisible = false
 
@@ -32,7 +26,7 @@ local function configSprite (down, left, right, up, group, x, y, scale)
 	return group
 end
 
-local function createEnemy (codX, codY, size, animation, mapCodX, mapCodY, scale)
+local function createEnemy (codX, codY, size, scale)
 
 	local group
 
@@ -198,7 +192,7 @@ local function createEnemy (codX, codY, size, animation, mapCodX, mapCodY, scale
 		display.newSprite(pokemon, sequencesLeft),
 		display.newSprite(pokemon, sequencesRight),
 		display.newSprite(pokemon, sequencesUp),
-		animation, mapCodX, mapCodY, scale)
+		scale)
 
 	return group
 
@@ -207,17 +201,20 @@ end
 local function walk (animation, x, y)
 	animation[1].isVisible = true
 	animation[1]:play()
-	animation.x = 100 - x
-	animation.y = 100 - y
+	animation.x = 100
+	animation.y = 100
 end
 
 local function generateEnemies (enemy, x, y, scale)
 	
+	local animationEnemy = display.newGroup()
+
 	if (enemy == "lopunny") then
-		local animationLopunny = display.newGroup()
-		local animationLopunny = createEnemy(80, 25, 27, animationLopunny, x, y, scale)
-		walk(animationLopunny, x, y)
+		animationEnemy = createEnemy(80, 25, 27, scale)
+		walk(animationEnemy, x, y)
 	end
+
+	return animationEnemy
 end
 
 M.generateEnemies = generateEnemies

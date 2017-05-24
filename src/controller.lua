@@ -77,6 +77,19 @@ local function gameController( sheet_hero )
 	arvore3.myName = "arvore3"
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0 } )
 
+
+	-- Place enemies on maps
+	local enemiesGroup = display.newGroup()
+	local fulano = enemies.generateEnemies("lopunny", 150, 420, 1.5)
+	enemiesGroup:insert(fulano)
+
+	-- Add enemies to physics
+	for count = 1, enemiesGroup.numChildren do
+		physics.addBody(enemiesGroup[count])
+		enemiesGroup[count].myName = "inimigo"..count
+		enemiesGroup[count].isFixedRotation = true
+	end
+
 	-- Create and respaw all items
 	local respawItems = item.generateItem()
 
@@ -91,12 +104,6 @@ local function gameController( sheet_hero )
 
 	-- Creates status window
 	status.statusWindow(hero)
-
-	-- Load enemies from png image and convert into animation
-	--enemies.loadEnemies()
-
-	-- Place enemies on maps
-	enemies.generateEnemies("lopunny", 150, 420, 1.5)
 	
 	-- Updates status window (HP, SP, atk, def, exp ...)
 	local function updateStatusWindow( event )
