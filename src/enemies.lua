@@ -7,6 +7,8 @@ local motionLeft
 local motionRight 
 local motionUp 
 
+local paused
+
 local function configSprite (down, left, right, up, scale)
 
 	local group = display.newGroup()
@@ -210,8 +212,6 @@ local function walk (animation, x, y, speed)
 	motionRight = -speed
 	motionUp = -speed
 
-	pause = false
-
 	animation.x = x
 	animation.y = y
 
@@ -292,7 +292,18 @@ local function walk (animation, x, y, speed)
 		end
 	end
 	timer.performWithDelay( 5000, changeDirection, -1 ) -- 5000 = 1 second to change direction. -1 = infinity loop
-	--return animation
+	
+	local function isPaused ()
+		if paused == true then
+			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
+			Runtime:removeEventListener("enterFrame", moveEnemyRight)
+			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			Runtime:removeEventListener("enterFrame", moveEnemyDown)
+		end
+
+	end
+	Runtime:addEventListener("enterFrame", isPaused)
+	
 end
 
 local function insertPropertiesEnemy (animation, name, level)
@@ -319,6 +330,7 @@ local function generateEnemies (enemy, level, x, y, scale)
 
 	--animationEnemy.x = x
 	--animationEnemy.y = y
+	paused = false
 
 	if (enemy == "lopunny") then
 
@@ -331,21 +343,9 @@ local function generateEnemies (enemy, level, x, y, scale)
 	return animationEnemy
 end
 
-local function pauseWalk (animation, p)
-	if p == true then
-		--walk(animation, x, y, 0)
-		--motionDown = 0
-		--motionLeft = 0
-		--motionRight = 0
-		--motionUp = 0
-	end
-	if p == false then
-		--walk(animation, x, y, 1)
-		--motionDown = 1
-		--motionLeft = 1
-		--motionRight = -1
-		--motionUp = -1
-	end
+local function pauseWalk (p)
+	
+	paused = p
 end
 
 

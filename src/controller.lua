@@ -109,20 +109,20 @@ local function gameController( sheet_hero )
 	end
 
 	-- Enables hero to pick up items
-	--character = item.itemsPickUp(hero, character)
 	character = collisionHandler.handler(hero, character)
 	hero:addEventListener( "collision" )
 
-	local function oi ()
+	local function pauseEnemyOnCombat ()
 		if (enemiesGroup[1].onCombat == true) then
-			--print ("On combat!!!!!")
-			--enemies.pauseWalk(enemiesGroup[1], true)
 
+			enemies.pauseWalk(true)
 			hero = combat.basicAttack(enemiesGroup[1], hero, 2)
 		end
+		if (enemiesGroup[1].onCombat == false) then
+			enemies.pauseWalk(false)
+		end
 	end	
-	timer.performWithDelay( 2000, oi, -1)
-	--Runtime:addEventListener("enterFrame", oi)
+	timer.performWithDelay( 2000, pauseEnemyOnCombat, -1)
 
 	-- Creates status window
 	status.statusWindow(hero)
