@@ -2,6 +2,11 @@ local widget = require( "widget" )
 
 local M = {}
 
+local motionDown
+local motionLeft 
+local motionRight 
+local motionUp 
+
 local function configSprite (down, left, right, up, scale)
 
 	local group = display.newGroup()
@@ -161,7 +166,7 @@ local function createEnemy (codX, codY, size, scale)
 	}
 
 	-- walking left sequences table
-	local sequencesLeft = {
+	local sequencesRight = {
 	    -- consecutive frames sequence
 	    {
 	        frames = { 5,6,7,8 },
@@ -170,7 +175,7 @@ local function createEnemy (codX, codY, size, scale)
 	}
 
 	-- walking right sequences table
-	local sequencesRight = {
+	local sequencesLeft = {
 	    -- consecutive frames sequence
 	    {
 	        frames = { 9,10,11,12 },
@@ -198,25 +203,153 @@ local function createEnemy (codX, codY, size, scale)
 
 end
 
-local function walk (animation, x, y)
-	animation[1].isVisible = true
-	animation[1]:play()
-	animation.x = 100
-	animation.y = 100
+local function walk (animation, x, y, speed)
+
+	motionDown = speed
+	motionLeft = speed
+	motionRight = -speed
+	motionUp = -speed
+
+	pause = false
+
+	animation.x = x
+	animation.y = y
+
+	-- Move character Down
+	local function moveEnemyDown (event)
+		animation.y = animation.y + motionDown
+		animation[1].isVisible = true
+		animation[2].isVisible = false
+		animation[3].isVisible = false
+		animation[4].isVisible = false
+		animation[1]:play()
+	end
+
+	-- Move character Left
+	local function moveEnemyLeft (event)
+		animation.x = animation.x + motionLeft
+		animation[1].isVisible = false
+		animation[2].isVisible = true
+		animation[3].isVisible = false
+		animation[4].isVisible = false
+		animation[2]:play()
+	end
+
+	-- Move character Right
+	local function moveEnemyRight (event)
+		animation.x = animation.x + motionRight
+		animation[1].isVisible = false
+		animation[2].isVisible = false
+		animation[3].isVisible = true
+		animation[4].isVisible = false
+		animation[3]:play()
+	end
+
+	-- Move character Up
+	local function moveEnemyUp (event)
+		animation.y = animation.y + motionUp
+		animation[1].isVisible = false
+		animation[2].isVisible = false
+		animation[3].isVisible = false
+		animation[4].isVisible = true
+		animation[4]:play()
+	end
+
+	local function changeDirection (event)
+		local direction = math.random(4)
+
+		Runtime:removeEventListener("enterFrame", moveEnemyLeft)
+		Runtime:removeEventListener("enterFrame", moveEnemyRight)
+		Runtime:removeEventListener("enterFrame", moveEnemyUp)
+		Runtime:removeEventListener("enterFrame", moveEnemyDown)
+
+		if direction == 1 then
+			Runtime:addEventListener("enterFrame", moveEnemyDown)
+			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
+			Runtime:removeEventListener("enterFrame", moveEnemyRight)
+			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			
+		elseif direction == 2 then
+			Runtime:addEventListener("enterFrame", moveEnemyLeft)
+			Runtime:removeEventListener("enterFrame", moveEnemyDown)
+			Runtime:removeEventListener("enterFrame", moveEnemyRight)
+			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			
+		elseif direction == 3 then
+			Runtime:addEventListener("enterFrame", moveEnemyRight)
+			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
+			Runtime:removeEventListener("enterFrame", moveEnemyDown)
+			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			
+		elseif direction == 4 then
+			Runtime:addEventListener("enterFrame", moveEnemyUp)
+			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
+			Runtime:removeEventListener("enterFrame", moveEnemyRight)
+			Runtime:removeEventListener("enterFrame", moveEnemyDown)
+			
+		else
+			print ("erro math random")
+		end
+	end
+	timer.performWithDelay( 5000, changeDirection, -1 ) -- 5000 = 1 second to change direction. -1 = infinity loop
+	--return animation
 end
 
-local function generateEnemies (enemy, x, y, scale)
+local function insertPropertiesEnemy (animation, name, level)
+
+	print ("Iniciado inimigo "..name.." de level "..level)
+
+	animation.myName = name
+	animation.level = level
+	animation.onCombat = false
+
+	if name == "lopunny" then
+		animation.HP = 2 * level
+		animation.maxHP = 2 * level
+		animation.atk = 0.5 * level
+		animation.def = 0.5 * level
+	end
+
+	return animation
+end
+
+local function generateEnemies (enemy, level, x, y, scale)
 	
 	local animationEnemy = display.newGroup()
 
+	--animationEnemy.x = x
+	--animationEnemy.y = y
+
 	if (enemy == "lopunny") then
+
 		animationEnemy = createEnemy(80, 25, 27, scale)
-		walk(animationEnemy, x, y)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
 	end
 
+	animationEnemy.myType = "enemy"
 	return animationEnemy
 end
 
+local function pauseWalk (animation, p)
+	if p == true then
+		--walk(animation, x, y, 0)
+		--motionDown = 0
+		--motionLeft = 0
+		--motionRight = 0
+		--motionUp = 0
+	end
+	if p == false then
+		--walk(animation, x, y, 1)
+		--motionDown = 1
+		--motionLeft = 1
+		--motionRight = -1
+		--motionUp = -1
+	end
+end
+
+
 M.generateEnemies = generateEnemies
+M.pauseWalk = pauseWalk
 
 return M

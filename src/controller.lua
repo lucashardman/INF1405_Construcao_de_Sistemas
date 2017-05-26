@@ -5,6 +5,8 @@ local character = require "character"
 local item = require "items"
 local status = require "status"
 local enemies = require "enemies"
+local collisionHandler = require "collisionHandler"
+local combat = require "combat"
 
 local M = {}
 
@@ -54,12 +56,16 @@ local function gameController( sheet_hero )
 	-- Adding borders to the map
 	local borderRight = map:findObject("borderRight")
 	borderRight.myName = "borderRight"
+	borderRight.myType = "border"
 	local borderLeft = map:findObject("borderLeft")
 	borderLeft.myName = "borderLeft"
+	borderLeft.myType = "border"
 	local borderUp = map:findObject("borderUp")
 	borderUp.myName = "borderUp"
+	borderUp.myType = "border"
 	local borderDown = map:findObject("borderDown")
 	borderDown.myName = "borderDown"
+	borderDown.myType = "border"
 
 	physics.addBody( borderRight, "static", { density=3.0, friction=0.5, bounce=0 } )
 	physics.addBody( borderLeft, "static", { density=3.0, friction=0.5, bounce=0 } )
@@ -69,26 +75,30 @@ local function gameController( sheet_hero )
 	-- Adding Trees
 	local arvore1 = map:findObject("arvore1")
 	arvore1.myName = "arvore1"
+	arvore1.myType = "scenario"
 	physics.addBody( arvore1, "static", { density=3.0, friction=0.5, bounce=0 } )
 	local arvore2 = map:findObject("arvore2")
 	arvore2.myName = "arvore2"
+	arvore2.myType = "scenario"
 	physics.addBody( arvore2, "static", { density=3.0, friction=0.5, bounce=0 } )
 	local arvore3 = map:findObject("arvore3")
 	arvore3.myName = "arvore3"
+	arvore3.myType = "scenario"
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0 } )
 
 
 	-- Place enemies on maps
 	local enemiesGroup = display.newGroup()
-	local fulano = enemies.generateEnemies("lopunny", 150, 420, 1.5)
+	local fulano = enemies.generateEnemies("lopunny", 1, 350, 300, 1.5)
 	enemiesGroup:insert(fulano)
 
 	-- Add enemies to physics
 	for count = 1, enemiesGroup.numChildren do
 		physics.addBody(enemiesGroup[count])
-		enemiesGroup[count].myName = "inimigo"..count
 		enemiesGroup[count].isFixedRotation = true
 	end
+	enemiesGroup[1].atk = 50
+	print (enemiesGroup[1].myType.." HP: "..enemiesGroup[1].HP.." ATK: "..enemiesGroup[1].atk.." DEF: "..enemiesGroup[1].def)
 
 	-- Create and respaw all items
 	local respawItems = item.generateItem()
@@ -99,8 +109,20 @@ local function gameController( sheet_hero )
 	end
 
 	-- Enables hero to pick up items
-	character = item.itemsPickUp(hero, character)
-	hero:addEventListener( "collision" )	
+	--character = item.itemsPickUp(hero, character)
+	character = collisionHandler.handler(hero, character)
+	hero:addEventListener( "collision" )
+
+	local function oi ()
+		if (enemiesGroup[1].onCombat == true) then
+			--print ("On combat!!!!!")
+			--enemies.pauseWalk(enemiesGroup[1], true)
+
+			hero = combat.basicAttack(enemiesGroup[1], hero, 2)
+		end
+	end	
+	timer.performWithDelay( 2000, oi, -1)
+	--Runtime:addEventListener("enterFrame", oi)
 
 	-- Creates status window
 	status.statusWindow(hero)

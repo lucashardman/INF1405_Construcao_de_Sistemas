@@ -8,8 +8,8 @@ local M = {}
 local function characterController (characterGroup, speed)
 
 
-	motionx = 0 -- Variable used to move horizontally
-	motiony = 0 -- Variable used to move vertically
+	local motionx = 0 -- Variable used to move horizontally
+	local motiony = 0 -- Variable used to move vertically
 	--speed = 2 -- Speed of movement of the character
 
 	-- Called when a key event has been received
