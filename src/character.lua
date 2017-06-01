@@ -27,6 +27,7 @@ local function characterController (characterGroup, speed)
 	    	characterGroup[3].isVisible = false
 	    	characterGroup[4].isVisible = false
 
+	    	characterGroup.direction = "right"
 	    	characterGroup[1]:play()
 	    end
 
@@ -44,6 +45,7 @@ local function characterController (characterGroup, speed)
 	    	characterGroup[3].isVisible = false
 	    	characterGroup[4].isVisible = false
 	    	
+	    	characterGroup.direction = "left"
 	    	characterGroup[2]:play()
 	    end
 
@@ -61,6 +63,7 @@ local function characterController (characterGroup, speed)
 	    	characterGroup[3].isVisible = true
 	    	characterGroup[4].isVisible = false
 	    	
+	    	characterGroup.direction = "up"
 	    	characterGroup[3]:play()
 	    end
 
@@ -78,6 +81,7 @@ local function characterController (characterGroup, speed)
 	    	characterGroup[3].isVisible = false
 	    	characterGroup[4].isVisible = true
 	    	
+	    	characterGroup.direction = "down"
 	    	characterGroup[4]:play()
 	    end
 
@@ -103,6 +107,7 @@ end
 local function initializeChar (sheet_hero)
 
 	local characterGroup = display.newGroup()
+	characterGroup.direction = "down" -- Start going down by default
 
 	-- walking right sequences table
 	local sequences_walkingRight = {

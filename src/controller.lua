@@ -47,8 +47,8 @@ local function gameController( sheet_hero )
 	hero.maxHP = 100
 	hero.SP = 50
 	hero.maxSP = 50
-	hero.atk = 30
-	hero.def = 30
+	hero.atk = 3
+	hero.def = 3
 
 	physics.addBody( hero, "dynamic", { density=3.0, friction=1, bounce=0.3 } )
 	hero.isFixedRotation = true
@@ -112,17 +112,27 @@ local function gameController( sheet_hero )
 	character = collisionHandler.handler(hero, character)
 	hero:addEventListener( "collision" )
 
-	local function pauseEnemyOnCombat ()
+	
+	local function heroAttack (event)
 		if (enemiesGroup[1].onCombat == true) then
+			if (event.keyName == "space" and event.phase == "down") then
+				enemies.pauseWalk(true)
+				enemiesGroup[1] = combat.body2bodyAttack(hero, enemiesGroup[1])
+				if enemiesGroup[1].HP == 0 then
+					print ("Morreu :/")
+					enemiesGroup[1].x = 0
+					enemiesGroup[1].y = 0
+					enemiesGroup[1].alive = false
+					enemiesGroup[1].isVisible = false
+					physics.removeBody(enemiesGroup[1])
+				end
+			elseif (event.keyName == "space" and event.phase == "up") then
+				enemies.pauseWalk(false)
+			end
+		end
+	end
+	Runtime:addEventListener("key", heroAttack)
 
-			enemies.pauseWalk(true)
-			hero = combat.basicAttack(enemiesGroup[1], hero, 2)
-		end
-		if (enemiesGroup[1].onCombat == false) then
-			enemies.pauseWalk(false)
-		end
-	end	
-	timer.performWithDelay( 2000, pauseEnemyOnCombat, -1)
 
 	-- Creates status window
 	status.statusWindow(hero)

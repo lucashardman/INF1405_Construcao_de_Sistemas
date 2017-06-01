@@ -315,10 +315,11 @@ local function insertPropertiesEnemy (animation, name, level)
 	animation.onCombat = false
 
 	if name == "lopunny" then
-		animation.HP = 2 * level
-		animation.maxHP = 2 * level
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
 		animation.atk = 0.5 * level
 		animation.def = 0.5 * level
+		animation.alive = true
 	end
 
 	return animation
@@ -328,8 +329,6 @@ local function generateEnemies (enemy, level, x, y, scale)
 	
 	local animationEnemy = display.newGroup()
 
-	--animationEnemy.x = x
-	--animationEnemy.y = y
 	paused = false
 
 	if (enemy == "lopunny") then
