@@ -320,6 +320,7 @@ local function insertPropertiesEnemy (animation, name, level)
 		animation.atk = 0.5 * level
 		animation.def = 0.5 * level
 		animation.alive = true
+		animation.experience = 25
 	end
 
 	return animation
@@ -347,8 +348,32 @@ local function pauseWalk (p)
 	paused = p
 end
 
+local function showHPbar (enemy)
+
+	local barWidth = 220
+
+	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+	backgroundBarHP.x = enemy.x ; backgroundBarHP.y = enemy.y
+	local colorBarHP = {217/255, 217/255, 217/255}
+	backgroundBarHP.fill = colorBarHP
+	backgroundBarHP.height = 15
+	backgroundBarHP.width = barWidth
+
+	local percentageHP = enemy.HP/enemy.maxHP
+
+	local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+	local colorBarHP = {0/255, 230/255, 0/255}
+	barHP.height = 15
+	barHP.width = 220
+	barHP.fill = colorBarHP
+	barHP.width = percentageHP * barWidth
+	barHP.x = backgroundBarHP.x ; barHP.y = backgroundBarHP.y
+end
+
+
 
 M.generateEnemies = generateEnemies
 M.pauseWalk = pauseWalk
+M.showHPbar = showHPbar
 
 return M

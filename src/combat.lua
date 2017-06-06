@@ -99,7 +99,23 @@ local function body2bodyAttack (attacker, defender)
 
 	return defender
 end
+--[[
+local function isDead (hero, enemy)
+
+	hero.experience = hero.experience + enemiesGroup[1].experience
+	print ("Morreu :/")
+	enemiesGroup[1].x = 0
+	enemiesGroup[1].y = 0
+	enemiesGroup[1].alive = false
+	enemiesGroup[1].isVisible = false
+	physics.removeBody(enemiesGroup[1])
+
+	return hero
+end
+]]
+
 
 M.body2bodyAttack = body2bodyAttack
+--M.isDead = isDead
 
 return M

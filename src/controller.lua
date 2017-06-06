@@ -49,6 +49,8 @@ local function gameController( sheet_hero )
 	hero.maxSP = 50
 	hero.atk = 3
 	hero.def = 3
+	hero.experience = 0
+	hero.level = 1
 
 	physics.addBody( hero, "dynamic", { density=3.0, friction=1, bounce=0.3 } )
 	hero.isFixedRotation = true
@@ -112,27 +114,78 @@ local function gameController( sheet_hero )
 	character = collisionHandler.handler(hero, character)
 	hero:addEventListener( "collision" )
 
-	
-	local function heroAttack (event)
-		if (enemiesGroup[1].onCombat == true) then
-			if (event.keyName == "space" and event.phase == "down") then
-				enemies.pauseWalk(true)
-				enemiesGroup[1] = combat.body2bodyAttack(hero, enemiesGroup[1])
-				if enemiesGroup[1].HP == 0 then
-					print ("Morreu :/")
-					enemiesGroup[1].x = 0
-					enemiesGroup[1].y = 0
-					enemiesGroup[1].alive = false
-					enemiesGroup[1].isVisible = false
-					physics.removeBody(enemiesGroup[1])
-				end
-			elseif (event.keyName == "space" and event.phase == "up") then
-				enemies.pauseWalk(false)
-			end
+	-- Update level
+	local function updateLevel()
+		if hero.experience >= 50 and hero.level == 1 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 50 and hero.level == 2 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 150 and hero.level == 3 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 300 and hero.level == 4 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 600 and hero.level == 5 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 1500 and hero.level == 6 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 3000 and hero.level == 7 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 7000 and hero.level == 8 then
+			hero.level = hero.level + 1
+		elseif hero.experience >= 20000 and hero.level == 9 then
+			hero.level = hero.level + 1 -- Max level 9 + 1 = 10
 		end
 	end
-	Runtime:addEventListener("key", heroAttack)
 
+	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+	local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+
+	local function lalaland ()
+		local barWidth = 40
+
+		
+		backgroundBarHP.x = enemiesGroup[1].x ; backgroundBarHP.y = enemiesGroup[1].y + enemiesGroup[1].height/2 + 5
+		local colorBarHP = {217/255, 217/255, 217/255}
+		backgroundBarHP.fill = colorBarHP
+		backgroundBarHP.height = 5
+		backgroundBarHP.width = barWidth
+
+		local percentageHP = enemiesGroup[1].HP/enemiesGroup[1].maxHP
+
+		local colorBarHP = {0/255, 230/255, 0/255}
+		barHP.height = 5
+		barHP.width = barWidth
+		barHP.fill = colorBarHP
+		barHP.width = percentageHP * barWidth
+		barHP.x = enemiesGroup[1].x - backgroundBarHP.width/2 + barHP.width/2; barHP.y = backgroundBarHP.y
+	end
+	Runtime:addEventListener("enterFrame", lalaland)
+
+	local function heroAttack (event)
+		for i=1, enemiesGroup.numChildren do
+			if (enemiesGroup[i].onCombat == true) then
+				if (event.keyName == "space" and event.phase == "down") then
+					enemies.pauseWalk(true)
+					enemiesGroup[i] = combat.body2bodyAttack(hero, enemiesGroup[i])
+					if enemiesGroup[i].HP == 0 then
+						hero.experience = hero.experience + enemiesGroup[i].experience
+						print ("Morreu :/")
+						enemiesGroup[i].x = 0
+						enemiesGroup[i].y = 0
+						enemiesGroup[i].alive = false
+						enemiesGroup[i].isVisible = false
+						physics.removeBody(enemiesGroup[i])
+					end
+				elseif (event.keyName == "space" and event.phase == "up") then
+					enemies.pauseWalk(false)
+				end
+			end
+		end
+		updateLevel()
+
+		--print ("Level: "..hero.level.." Exp: "..hero.experience)
+	end
+	Runtime:addEventListener("key", heroAttack)
 
 	-- Creates status window
 	status.statusWindow(hero)
