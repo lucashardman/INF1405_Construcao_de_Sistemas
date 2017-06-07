@@ -114,8 +114,43 @@ local function isDead (hero, enemy)
 end
 ]]
 
+local function initializeHPbar()
+
+	local HP = {}
+
+	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+	local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+
+	table.insert(HP, backgroundBarHP)
+	table.insert(HP, barHP)
+
+	return HP 
+end
+
+local function HPbar(enemy, bars)
+
+	local barWidth = 40
+
+	bars[2].x = enemy.x ; bars[2].y = enemy.y + enemy.height/2 + 5
+	local colorBarHP = {217/255, 217/255, 217/255}
+	bars[2].fill = colorBarHP
+	bars[2].height = 5
+	bars[2].width = barWidth
+
+	local percentageHP = enemy.HP/enemy.maxHP
+
+	local colorBarHP = {0/255, 230/255, 0/255}
+	bars[2].height = 5
+	bars[2].width = barWidth
+	bars[2].fill = colorBarHP
+	bars[2].width = percentageHP * barWidth
+	bars[2].x = enemy.x - bars[1].width/2 + bars[2].width/2; bars[2].y = bars[1].y
+end
+
 
 M.body2bodyAttack = body2bodyAttack
+M.HPbar = HPbar
+M.initializeHPbar = initializeHPbar
 --M.isDead = isDead
 
 return M

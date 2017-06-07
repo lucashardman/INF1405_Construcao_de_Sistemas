@@ -137,6 +137,14 @@ local function gameController( sheet_hero )
 		end
 	end
 
+	local enemy1 = combat.initializeHPbar();
+
+	local function lalala()
+	combat.HPbar(enemiesGroup[1], enemy1)
+	end
+	Runtime:addEventListener("enterFrame", lalala)
+
+--[[
 	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
 	local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
 
@@ -160,7 +168,7 @@ local function gameController( sheet_hero )
 		barHP.x = enemiesGroup[1].x - backgroundBarHP.width/2 + barHP.width/2; barHP.y = backgroundBarHP.y
 	end
 	Runtime:addEventListener("enterFrame", lalaland)
-
+]]
 	local function heroAttack (event)
 		for i=1, enemiesGroup.numChildren do
 			if (enemiesGroup[i].onCombat == true) then
