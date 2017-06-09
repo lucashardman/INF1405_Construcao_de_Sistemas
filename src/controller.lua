@@ -139,10 +139,10 @@ local function gameController( sheet_hero )
 
 	local enemy1 = combat.initializeHPbar();
 
-	local function lalala()
-	combat.HPbar(enemiesGroup[1], enemy1)
+	local function updateEnemyHPbar()
+	enemy1 = combat.HPbar(enemiesGroup[1], enemy1)
 	end
-	Runtime:addEventListener("enterFrame", lalala)
+	Runtime:addEventListener("enterFrame", updateEnemyHPbar)
 
 --[[
 	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )

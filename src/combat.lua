@@ -131,11 +131,11 @@ local function HPbar(enemy, bars)
 
 	local barWidth = 40
 
-	bars[2].x = enemy.x ; bars[2].y = enemy.y + enemy.height/2 + 5
+	bars[1].x = enemy.x ; bars[1].y = enemy.y + enemy.height/2 + 5
 	local colorBarHP = {217/255, 217/255, 217/255}
-	bars[2].fill = colorBarHP
-	bars[2].height = 5
-	bars[2].width = barWidth
+	bars[1].fill = colorBarHP
+	bars[1].height = 5
+	bars[1].width = barWidth
 
 	local percentageHP = enemy.HP/enemy.maxHP
 
@@ -145,6 +145,8 @@ local function HPbar(enemy, bars)
 	bars[2].fill = colorBarHP
 	bars[2].width = percentageHP * barWidth
 	bars[2].x = enemy.x - bars[1].width/2 + bars[2].width/2; bars[2].y = bars[1].y
+
+	return bars
 end
 
 
