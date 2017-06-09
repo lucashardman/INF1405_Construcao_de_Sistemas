@@ -99,20 +99,6 @@ local function body2bodyAttack (attacker, defender)
 
 	return defender
 end
---[[
-local function isDead (hero, enemy)
-
-	hero.experience = hero.experience + enemiesGroup[1].experience
-	print ("Morreu :/")
-	enemiesGroup[1].x = 0
-	enemiesGroup[1].y = 0
-	enemiesGroup[1].alive = false
-	enemiesGroup[1].isVisible = false
-	physics.removeBody(enemiesGroup[1])
-
-	return hero
-end
-]]
 
 local function initializeHPbar()
 
@@ -145,6 +131,11 @@ local function HPbar(enemy, bars)
 	bars[2].fill = colorBarHP
 	bars[2].width = percentageHP * barWidth
 	bars[2].x = enemy.x - bars[1].width/2 + bars[2].width/2; bars[2].y = bars[1].y
+
+	if percentageHP == 0 then
+		bars[1].isVisible = false
+		bars[2].isVisible = false
+	end
 
 	return bars
 end

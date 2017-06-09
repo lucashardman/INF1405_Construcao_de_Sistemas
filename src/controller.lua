@@ -91,15 +91,29 @@ local function gameController( sheet_hero )
 
 	-- Place enemies on maps
 	local enemiesGroup = display.newGroup()
-	local fulano = enemies.generateEnemies("lopunny", 1, 350, 300, 1.5)
-	enemiesGroup:insert(fulano)
+	local fulano1 = enemies.generateEnemies("lopunny", 1, 350, 300, 1.5)
+	enemiesGroup:insert(fulano1)
+	local fulano2 = enemies.generateEnemies("lopunny", 1, 300, 300, 1.5)
+	enemiesGroup:insert(fulano2)
+	local fulano3 = enemies.generateEnemies("lopunny", 1, 550, 100, 1.5)
+	enemiesGroup:insert(fulano3)
+	local fulano4 = enemies.generateEnemies("lopunny", 1, 30, 700, 1.5)
+	enemiesGroup:insert(fulano4)
 
-	-- Add enemies to physics
+	-- Add enemies to physics and add HPbar
 	for count = 1, enemiesGroup.numChildren do
+
+		-- Physics
 		physics.addBody(enemiesGroup[count])
 		enemiesGroup[count].isFixedRotation = true
+
+		-- HP bar
+		local enemyBar = combat.initializeHPbar();
+		local function updateEnemyHPbar()
+			enemyBar = combat.HPbar(enemiesGroup[count], enemyBar)
+		end
+		Runtime:addEventListener("enterFrame", updateEnemyHPbar)
 	end
-	enemiesGroup[1].atk = 50
 	print (enemiesGroup[1].myType.." HP: "..enemiesGroup[1].HP.." ATK: "..enemiesGroup[1].atk.." DEF: "..enemiesGroup[1].def)
 
 	-- Create and respaw all items
@@ -137,38 +151,6 @@ local function gameController( sheet_hero )
 		end
 	end
 
-	local enemy1 = combat.initializeHPbar();
-
-	local function updateEnemyHPbar()
-	enemy1 = combat.HPbar(enemiesGroup[1], enemy1)
-	end
-	Runtime:addEventListener("enterFrame", updateEnemyHPbar)
-
---[[
-	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
-	local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
-
-	local function lalaland ()
-		local barWidth = 40
-
-		
-		backgroundBarHP.x = enemiesGroup[1].x ; backgroundBarHP.y = enemiesGroup[1].y + enemiesGroup[1].height/2 + 5
-		local colorBarHP = {217/255, 217/255, 217/255}
-		backgroundBarHP.fill = colorBarHP
-		backgroundBarHP.height = 5
-		backgroundBarHP.width = barWidth
-
-		local percentageHP = enemiesGroup[1].HP/enemiesGroup[1].maxHP
-
-		local colorBarHP = {0/255, 230/255, 0/255}
-		barHP.height = 5
-		barHP.width = barWidth
-		barHP.fill = colorBarHP
-		barHP.width = percentageHP * barWidth
-		barHP.x = enemiesGroup[1].x - backgroundBarHP.width/2 + barHP.width/2; barHP.y = backgroundBarHP.y
-	end
-	Runtime:addEventListener("enterFrame", lalaland)
-]]
 	local function heroAttack (event)
 		for i=1, enemiesGroup.numChildren do
 			if (enemiesGroup[i].onCombat == true) then
