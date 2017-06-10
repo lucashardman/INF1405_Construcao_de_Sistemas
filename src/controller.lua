@@ -129,24 +129,42 @@ local function gameController( sheet_hero )
 	hero:addEventListener( "collision" )
 
 	-- Update level
+	local expForNextLevel = 50
+
 	local function updateLevel()
-		if hero.experience >= 50 and hero.level == 1 then
+		if hero.experience >= expForNextLevel and hero.level == 1 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 50 and hero.level == 2 then
+			hero.experience = 0
+			expForNextLevel = 100
+		elseif hero.experience >= expForNextLevel and hero.level == 2 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 150 and hero.level == 3 then
+			hero.experience = 0
+			expForNextLevel = 200
+		elseif hero.experience >= expForNextLevel and hero.level == 3 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 300 and hero.level == 4 then
+			hero.experience = 0
+			expForNextLevel = 300
+		elseif hero.experience >= expForNextLevel and hero.level == 4 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 600 and hero.level == 5 then
+			hero.experience = 0
+			expForNextLevel = 400
+		elseif hero.experience >= expForNextLevel and hero.level == 5 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 1500 and hero.level == 6 then
+			hero.experience = 0
+			expForNextLevel = 500
+		elseif hero.experience >= expForNextLevel and hero.level == 6 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 3000 and hero.level == 7 then
+			hero.experience = 0
+			expForNextLevel = 600
+		elseif hero.experience >= expForNextLevel and hero.level == 7 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 7000 and hero.level == 8 then
+			hero.experience = 0
+			expForNextLevel = 700
+		elseif hero.experience >= expForNextLevel and hero.level == 8 then
 			hero.level = hero.level + 1
-		elseif hero.experience >= 20000 and hero.level == 9 then
+			hero.experience = 0
+			expForNextLevel = 800
+		elseif hero.experience >= expForNextLevel and hero.level == 9 then
 			hero.level = hero.level + 1 -- Max level 9 + 1 = 10
 		end
 	end
@@ -182,7 +200,7 @@ local function gameController( sheet_hero )
 	
 	-- Updates status window (HP, SP, atk, def, exp ...)
 	local function updateStatusWindow( event )
-		status.update(hero)
+		status.update(hero, expForNextLevel)
 	end
 	Runtime:addEventListener( "enterFrame", updateStatusWindow )
 

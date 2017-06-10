@@ -10,10 +10,14 @@ local speed
 local baseSpeed
 local atk
 local def
+local experience
+local level
 
 local barHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
 
 local barSP = display.newRoundedRect( 0, 0, 150, 50, 3 )
+
+local barExp = display.newRoundedRect( 0, 0, 150, 50, 3 )
 
 local barWidth = 220
 
@@ -41,12 +45,6 @@ function statusWindow (hero)
 	local window = display.newRect( windowX, windowY, windowSizeX, windowSizeY )
 	windowGroup:insert(window)
 
-	HP = display.newText("HP ", 0, 0, native.systemFont, 12 )
-	HP.x = 20 ; HP.y = 35
-	HP:setFillColor( 0, 0, 0 )
-	HP.anchorX = 0
-	windowGroup:insert(HP)
-
 	local backgroundBarHP = display.newRoundedRect( 0, 0, 150, 50, 3 )
 	backgroundBarHP.x = 220 ; backgroundBarHP.y = 37
 	local colorBarHP = {217/255, 217/255, 217/255}
@@ -63,22 +61,30 @@ function statusWindow (hero)
 	backgroundBarSP.width = barWidth
 	windowGroup:insert(backgroundBarSP)
 
+	local backgroundBarExp = display.newRoundedRect( 0, 0, 150, 50, 3 )
+	backgroundBarExp.x = 220 ; backgroundBarExp.y = 77
+	local colorBarExp = {217/255, 217/255, 217/255}
+	backgroundBarExp.fill = colorBarSP
+	backgroundBarExp.height = 15
+	backgroundBarExp.width = barWidth
+	windowGroup:insert(backgroundBarExp)
+
 	windowGroup:insert(barHP)
 	windowGroup:insert(barSP)
+	windowGroup:insert(barExp)
 
+	HP = display.newText("HP ", 0, 0, native.systemFont, 12 )
+	HP.x = 20 ; HP.y = 35
+	HP:setFillColor( 0, 0, 0 )
+	HP.anchorX = 0
+	windowGroup:insert(HP)
 
 	SP = display.newText("SP ", 0, 0, native.systemFont, 12 )
 	SP.x = 20 ; SP.y = 57
 	SP:setFillColor( 0, 0, 0 )
 	SP.anchorX = 0
 	windowGroup:insert(SP)
---[[
-	speed = display.newText("speed ", 0, 0, native.systemFont, 12 )
-	speed.x = 20 ; speed.y = 35 * 3 + 10 * 2
-	speed:setFillColor( 0, 0, 0 )
-	speed.anchorX = 0
-	windowGroup:insert(speed)
-]]
+
 	atk = display.newText("atk ", 0, 0, native.systemFont, 12 )
 	atk.x = 95 ; atk.y = 150
 	atk:setFillColor( 0, 0, 0 )
@@ -96,6 +102,18 @@ function statusWindow (hero)
 	def:setFillColor( 0, 0, 0 )
 	def.anchorX = 0
 	windowGroup:insert(def)
+
+	experience = display.newText("Exp ", 0, 0, native.systemFont, 12 )
+	experience.x = 20 ; experience.y = 77
+	experience:setFillColor( 0, 0, 0 )
+	experience.anchorX = 0
+	windowGroup:insert(experience)
+
+	level = display.newText("Level ", 0, 0, native.systemFont, 30 )
+	level.x = 20 ; level.y =120
+	level:setFillColor( 0, 0, 0 )
+	level.anchorX = 0
+	windowGroup:insert(level)
 
 	windowGroupFlag = true
 
@@ -132,16 +150,18 @@ function statusWindow (hero)
 
 end
 
-function update(hero)
+function update(hero, expForNextLevel)
 
 	HP.text = "HP "..hero.HP.."/"..hero.maxHP
 	SP.text = "SP "..hero.SP.."/"..hero.maxSP
-	--speed.text = "Speed "..hero.speed
 	atk.text = "Attack "..hero.atk
+	experience.text = "Exp "..hero.experience.."/"..expForNextLevel
+	level.text = "Lv. "..hero.level
 	def.text = "Defence "..hero.def
 
 	local percentageHP = hero.HP/hero.maxHP
 	local percentageSP = hero.SP/hero.maxSP
+	local percentageExp = hero.experience/expForNextLevel
 
 	local colorBarHP = {0/255, 230/255, 0/255}
 	barHP.height = 15
@@ -156,6 +176,13 @@ function update(hero)
 	barSP.fill = colorBarSP
 	barSP.width = percentageSP * barWidth
 	barSP.x = barWidth/2 + barSP.width/2 ; barSP.y = 57
+
+	local colorBarExp = {255/255, 178/255, 0/255}
+	barExp.height = 15
+	barExp.width = 220
+	barExp.fill = colorBarExp
+	barExp.width = percentageExp * barWidth
+	barExp.x = barWidth/2 + barExp.width/2 ; barExp.y = 77
 
 end
 
