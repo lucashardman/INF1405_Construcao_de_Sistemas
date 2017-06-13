@@ -140,10 +140,38 @@ local function HPbar(enemy, bars)
 	return bars
 end
 
+local function explosionEffect(enemy)
+	local sheetExplosion =
+		{
+		    width = 66, -- width of EACH FRAME
+		    height = 66, -- height of EACH FRAME
+		    numFrames = 32 -- number of frames
+		}
+	local explosionSheet = graphics.newImageSheet( "images/other/explosion-effect.png", sheetExplosion )
+
+	local sequences = {
+	    -- consecutive frames sequence
+	    {
+	        frames = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32 },
+	        time = 400
+	    }
+	}
+	
+	explosion = display.newSprite(explosionSheet, sequences)
+	explosion.x = enemy.x
+	explosion.y = enemy.y
+	explosion:play()
+	local function stopExplosion ()
+		explosion.isVisible = false
+	end
+	timer.performWithDelay( 400, stopExplosion, 1 )
+
+end
+
 
 M.body2bodyAttack = body2bodyAttack
 M.HPbar = HPbar
 M.initializeHPbar = initializeHPbar
---M.isDead = isDead
+M.explosionEffect = explosionEffect
 
 return M

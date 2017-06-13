@@ -177,6 +177,7 @@ local function gameController( sheet_hero )
 					enemiesGroup[i] = combat.body2bodyAttack(hero, enemiesGroup[i])
 					if enemiesGroup[i].HP == 0 then
 						hero.experience = hero.experience + enemiesGroup[i].experience
+						combat.explosionEffect(enemiesGroup[i])
 						print ("Morreu :/")
 						enemiesGroup[i].x = 0
 						enemiesGroup[i].y = 0
