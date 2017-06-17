@@ -152,6 +152,7 @@ end
 
 function update(hero, expForNextLevel)
 
+	expForNextLevel = hero.expForNextLevel
 	HP.text = "HP "..hero.HP.."/"..hero.maxHP
 	SP.text = "SP "..hero.SP.."/"..hero.maxSP
 	atk.text = "Attack "..hero.atk
@@ -186,7 +187,112 @@ function update(hero, expForNextLevel)
 
 end
 
+
+local function updateLevel(hero)
+	if hero.experience >= hero.expForNextLevel and hero.level == 1 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 100
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 2 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 200
+
+		hero.HP = 300
+		hero.maxHP = 300
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 3 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 300
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 4 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 400
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 5 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 500
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 6 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 600
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 7 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 700
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 8 then
+		hero.level = hero.level + 1
+		hero.experience = 0
+		hero.expForNextLevel = 800
+
+		hero.HP = 200
+		hero.maxHP = 200
+		hero.SP = 100
+		hero.maxSP = 100
+		hero.atk = 4
+		hero.def = 4
+
+	elseif hero.experience >= hero.expForNextLevel and hero.level == 9 then
+		hero.level = hero.level + 1 -- Max level 9 + 1 = 10
+	end
+	return hero
+end
+
 M.statusWindow = statusWindow
 M.update = update
+M.updateLevel = updateLevel
 
 return M

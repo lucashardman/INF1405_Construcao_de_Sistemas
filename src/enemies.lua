@@ -332,14 +332,37 @@ local function insertPropertiesEnemy (animation, name, level)
 	return animation
 end
 
-local function generateEnemies (enemy, level, x, y, scale)
+local function generateEnemies (level, x, y, scale)
 	
 	local animationEnemy = display.newGroup()
 
 	paused = false
 
-	if (enemy == "lopunny") then
+	enemySorted = 0
 
+	if level == 1 then
+		enemySorted = math.random(1, 1)
+	elseif level == 2 then
+		enemySorted = math.random(1, 2)
+	elseif level == 3 then
+		enemySorted = math.random(1, 3)
+	elseif level == 4 then
+		enemySorted = math.random(1, 4)
+	elseif level == 5 then
+		enemySorted = math.random(1, 5)
+	elseif level == 6 then
+		enemySorted = math.random(1, 6)
+	elseif level == 7 then
+		enemySorted = math.random(1, 7)
+	elseif level == 8 then
+		enemySorted = math.random(1, 8)
+	elseif level == 9 then
+		enemySorted = math.random(1, 9)
+	end
+
+	if (enemySorted == 1) then
+
+		enemy = "lopunny"
 		animationEnemy = createEnemy(80, 25, 27, scale)
 		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
 		walk(animationEnemy, x, y, 1)

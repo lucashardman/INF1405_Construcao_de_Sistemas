@@ -55,6 +55,7 @@ local function gameController( sheet_hero )
 	hero.def = 3
 	hero.experience = 0
 	hero.level = 1
+	hero.expForNextLevel = 50
 
 	physics.addBody( hero, "dynamic", { density=3.0, friction=1, bounce=0.3 } )
 	hero.isFixedRotation = true
@@ -92,47 +93,6 @@ local function gameController( sheet_hero )
 	arvore3.myType = "scenario"
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0 } )
 
-	-- Update level
-	local expForNextLevel = 50
-
-	local function updateLevel()
-		if hero.experience >= expForNextLevel and hero.level == 1 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 100
-		elseif hero.experience >= expForNextLevel and hero.level == 2 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 200
-		elseif hero.experience >= expForNextLevel and hero.level == 3 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 300
-		elseif hero.experience >= expForNextLevel and hero.level == 4 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 400
-		elseif hero.experience >= expForNextLevel and hero.level == 5 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 500
-		elseif hero.experience >= expForNextLevel and hero.level == 6 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 600
-		elseif hero.experience >= expForNextLevel and hero.level == 7 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 700
-		elseif hero.experience >= expForNextLevel and hero.level == 8 then
-			hero.level = hero.level + 1
-			hero.experience = 0
-			expForNextLevel = 800
-		elseif hero.experience >= expForNextLevel and hero.level == 9 then
-			hero.level = hero.level + 1 -- Max level 9 + 1 = 10
-		end
-	end
-
 	-- Place enemies on maps
 	local enemiesGroup = display.newGroup()
 
@@ -154,47 +114,47 @@ local function gameController( sheet_hero )
 		if numEnemies < 8 then
 			if hero.level == 1 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 2 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 3 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 4 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 5 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 6 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 7 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 8 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 9 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 10 then
@@ -238,7 +198,7 @@ local function gameController( sheet_hero )
 				end
 			end
 		end
-		updateLevel()
+		hero = status.updateLevel(hero)
 	end
 	Runtime:addEventListener("key", heroAttack)
 
