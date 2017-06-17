@@ -100,6 +100,26 @@ local function body2bodyAttack (attacker, defender)
 	return defender
 end
 
+local function body2body (attacker, defender)
+
+	local hit = attacker.atk - defender.def
+
+	print (attacker.myName.." attacked! Hit = "..attacker.atk.." - "..defender.def.." = ".. hit)
+	print ("HP updated: "..defender.HP)
+
+	if  hit > 0 then -- If hero has less def then enemy's atk, hero loose HP
+
+		if defender.HP - hit >= 0 then
+			defender.HP = defender.HP - hit
+			hpFlag = 0
+		else
+			defender.HP = 0
+			hpFlag = 0
+		end
+	end
+	return defender
+end
+
 local function initializeHPbar()
 
 	local HP = {}
@@ -170,6 +190,7 @@ end
 
 
 M.body2bodyAttack = body2bodyAttack
+M.body2body = body2body
 M.HPbar = HPbar
 M.initializeHPbar = initializeHPbar
 M.explosionEffect = explosionEffect

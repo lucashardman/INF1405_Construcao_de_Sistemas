@@ -191,10 +191,32 @@ local function gameController( sheet_hero )
 			end
 		end
 		updateLevel()
-
-		--print ("Level: "..hero.level.." Exp: "..hero.experience)
 	end
 	Runtime:addEventListener("key", heroAttack)
+
+	local timeStart = os.time()
+	
+	function countSeconds ()
+		timeElapsed = os.time() - timeStart
+		return timeElapsed
+	end
+	Runtime:addEventListener("enterFrame", countSeconds)
+
+	local enemyAttackFlag = true
+	local function enemyAttack ()
+		for i=1, enemiesGroup.numChildren do
+			if enemiesGroup[i].onCombat == true and enemyAttackFlag == true then
+				if timeElapsed % enemiesGroup[i].speedAttack == 0 then
+					hero = combat.body2body(enemiesGroup[i], hero)
+					enemyAttackFlag = false
+				end
+			end
+			if timeElapsed % enemiesGroup[i].speedAttack ~= 0 then
+				enemyAttackFlag = true
+			end
+		end
+	end
+	Runtime:addEventListener("enterFrame", enemyAttack)
 
 	-- Creates status window
 	status.statusWindow(hero)

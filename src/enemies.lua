@@ -214,6 +214,7 @@ local function walk (animation, x, y, speed)
 
 	animation.x = x
 	animation.y = y
+	animation.direction = "down"
 
 	-- Move character Down
 	local function moveEnemyDown (event)
@@ -268,24 +269,28 @@ local function walk (animation, x, y, speed)
 			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
 			Runtime:removeEventListener("enterFrame", moveEnemyRight)
 			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			animation.direction = "down"
 			
 		elseif direction == 2 then
 			Runtime:addEventListener("enterFrame", moveEnemyLeft)
 			Runtime:removeEventListener("enterFrame", moveEnemyDown)
 			Runtime:removeEventListener("enterFrame", moveEnemyRight)
 			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			animation.direction = "left"
 			
 		elseif direction == 3 then
 			Runtime:addEventListener("enterFrame", moveEnemyRight)
 			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
 			Runtime:removeEventListener("enterFrame", moveEnemyDown)
 			Runtime:removeEventListener("enterFrame", moveEnemyUp)
+			animation.direction = "right"
 			
 		elseif direction == 4 then
 			Runtime:addEventListener("enterFrame", moveEnemyUp)
 			Runtime:removeEventListener("enterFrame", moveEnemyLeft)
 			Runtime:removeEventListener("enterFrame", moveEnemyRight)
 			Runtime:removeEventListener("enterFrame", moveEnemyDown)
+			animation.direction = "up"
 			
 		else
 			print ("erro math random")
@@ -317,10 +322,11 @@ local function insertPropertiesEnemy (animation, name, level)
 	if name == "lopunny" then
 		animation.HP = 20 * level
 		animation.maxHP = 20 * level
-		animation.atk = 0.5 * level
+		animation.atk = 5 * level
 		animation.def = 0.5 * level
 		animation.alive = true
 		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	return animation

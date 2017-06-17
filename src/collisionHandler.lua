@@ -3,11 +3,11 @@ M =  {}
 
 function handler(hero, character)
 
-	hero.HP = 0 -- teste
-	hero.SP = 0 -- teste
+	-- hero.HP = 0 -- teste
+	-- hero.SP = 0 -- teste
 
-	hpFlag = 0 -- 0 if hp is incomplete, 1 if hp is full
-	spFlag = 0 -- 0 if sp is incomplete, 1 if sp is full
+	hpFlag = 1 -- 0 if hp is incomplete, 1 if hp is full
+	spFlag = 1 -- 0 if sp is incomplete, 1 if sp is full
 	speedFlag = 0 -- 0 if poção rosa is unactive, 1 if poção rosa is active
 	atkFlag = 0 -- 0 if poção amarela is unactive, 1 if poção amarela is active
 	defFlag = 0 -- 0 if poção vermelha is unactive, 1 if poção vermelha is active
