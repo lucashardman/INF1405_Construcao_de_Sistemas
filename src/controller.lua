@@ -3,10 +3,10 @@ local physics = require "physics"
 local json = require "json"
 local character = require "character"
 local item = require "items"
-local status = require "status"
 local enemies = require "enemies"
 local collisionHandler = require "collisionHandler"
 local combat = require "combat"
+local status = require "status"
 
 local M = {}
 
@@ -25,12 +25,16 @@ end
 
 local function gameController( sheet_hero )
 	
+	local numEnemies = 0
+
 	-- Initiate physics
 	physics.start()
 	physics.setGravity( 0, 0 ) -- Use no gravity, because Corona doesn't work with Z direction
 	
 	-- Map is a json file rendered by ponywolf
 	local map = drawMap()
+
+
 
 	-- Hero is a group of sprite sheets
 	-- hero[1] means walk right
@@ -88,46 +92,6 @@ local function gameController( sheet_hero )
 	arvore3.myType = "scenario"
 	physics.addBody( arvore3, "static", { density=3.0, friction=0.5, bounce=0 } )
 
-
-	-- Place enemies on maps
-	local enemiesGroup = display.newGroup()
-	local fulano1 = enemies.generateEnemies("lopunny", 1, 350, 300, 1.5)
-	enemiesGroup:insert(fulano1)
-	local fulano2 = enemies.generateEnemies("lopunny", 1, 300, 300, 1.5)
-	enemiesGroup:insert(fulano2)
-	local fulano3 = enemies.generateEnemies("lopunny", 1, 550, 100, 1.5)
-	enemiesGroup:insert(fulano3)
-	local fulano4 = enemies.generateEnemies("lopunny", 1, 30, 700, 1.5)
-	enemiesGroup:insert(fulano4)
-
-	-- Add enemies to physics and add HPbar
-	for count = 1, enemiesGroup.numChildren do
-
-		-- Physics
-		physics.addBody(enemiesGroup[count])
-		enemiesGroup[count].isFixedRotation = true
-
-		-- HP bar
-		local enemyBar = combat.initializeHPbar();
-		local function updateEnemyHPbar()
-			enemyBar = combat.HPbar(enemiesGroup[count], enemyBar)
-		end
-		Runtime:addEventListener("enterFrame", updateEnemyHPbar)
-	end
-	print (enemiesGroup[1].myType.." HP: "..enemiesGroup[1].HP.." ATK: "..enemiesGroup[1].atk.." DEF: "..enemiesGroup[1].def)
-
-	-- Create and respaw all items
-	local respawItems = item.generateItem()
-
-	-- Add items to physics
-	for count = 1, respawItems.numChildren do
-		physics.addBody(respawItems[count])
-	end
-
-	-- Enables hero to pick up items
-	character = collisionHandler.handler(hero, character)
-	hero:addEventListener( "collision" )
-
 	-- Update level
 	local expForNextLevel = 50
 
@@ -169,6 +133,89 @@ local function gameController( sheet_hero )
 		end
 	end
 
+	-- Place enemies on maps
+	local enemiesGroup = display.newGroup()
+
+	local function configureEnemies(enemy)
+		enemiesGroup:insert(enemy)
+		physics.addBody(enemy)
+		enemy.isFixedRotation = true
+		numEnemies = numEnemies + 1
+		-- HP bar
+		local enemyBar = combat.initializeHPbar();
+		local function updateEnemyHPbar()
+			enemyBar = combat.HPbar(enemy, enemyBar)
+		end
+		Runtime:addEventListener("enterFrame", updateEnemyHPbar)
+	end
+	
+	local function respawEnemies()
+		
+		if numEnemies < 8 then
+			if hero.level == 1 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 2 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 3 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 4 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 5 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 6 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 7 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 8 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 9 then
+				for count = 1, 1 do 
+					local lopunny = enemies.generateEnemies("lopunny", 1, math.random(50, 1024), math.random(50, 768), 1.5)
+					configureEnemies(lopunny)
+				end
+			elseif hero.level == 10 then
+				print ("Cabo!! eeeeee!")
+			end
+		end
+	end
+	timer.performWithDelay( 5000, respawEnemies, -1 )
+	
+	-- Create and respaw all items
+	local respawItems = item.generateItem()
+
+	-- Add items to physics
+	for count = 1, respawItems.numChildren do
+		physics.addBody(respawItems[count])
+	end
+
+	-- Enables hero to pick up items
+	character = collisionHandler.handler(hero, character)
+	hero:addEventListener( "collision" )
+
 	local function heroAttack (event)
 		for i=1, enemiesGroup.numChildren do
 			if (enemiesGroup[i].onCombat == true) then
@@ -184,6 +231,7 @@ local function gameController( sheet_hero )
 						enemiesGroup[i].alive = false
 						enemiesGroup[i].isVisible = false
 						physics.removeBody(enemiesGroup[i])
+						numEnemies = numEnemies - 1
 					end
 				elseif (event.keyName == "space" and event.phase == "up") then
 					enemies.pauseWalk(false)
@@ -217,10 +265,10 @@ local function gameController( sheet_hero )
 		end
 	end
 	Runtime:addEventListener("enterFrame", enemyAttack)
-
+	
 	-- Creates status window
 	status.statusWindow(hero)
-	
+
 	-- Updates status window (HP, SP, atk, def, exp ...)
 	local function updateStatusWindow( event )
 		status.update(hero, expForNextLevel)

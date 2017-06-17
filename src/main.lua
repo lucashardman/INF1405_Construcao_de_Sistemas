@@ -912,7 +912,7 @@ background.width = 1024
 background.height = 768
 
 --local logo = display.newImage("images/coronalabs_logo@2x.png")
-local logo = display.newText( "Project High Guard", 200, 100, "images/other/RPGSystem.ttf", 46 )
+local logo = display.newText( "RPG Prototype", 200, 100, "images/other/RPGSystem.ttf", 46 )
 logo.x = display.contentCenterX, logo.contentCenterX
 logo.y = 100
 
