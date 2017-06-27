@@ -114,47 +114,47 @@ local function gameController( sheet_hero )
 		if numEnemies < 8 then
 			if hero.level == 1 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 2 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 3 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 4 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 5 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 6 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 7 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 8 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 9 then
 				for count = 1, 1 do 
-					local lopunny = enemies.generateEnemies(1, math.random(50, 1024), math.random(50, 768), 1.5)
+					local lopunny = enemies.generateEnemies(hero.level, math.random(50, 1024), math.random(50, 768), 1.5)
 					configureEnemies(lopunny)
 				end
 			elseif hero.level == 10 then

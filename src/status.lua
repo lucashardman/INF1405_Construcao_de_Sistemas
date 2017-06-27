@@ -210,80 +210,80 @@ local function updateLevel(hero)
 		hero.maxHP = 300
 		hero.SP = 100
 		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.atk = 5
+		hero.def = 5
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 3 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 300
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 400
+		hero.maxHP = 400
+		hero.SP = 150
+		hero.maxSP = 150
+		hero.atk = 6
+		hero.def = 6
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 4 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 400
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 500
+		hero.maxHP = 500
+		hero.SP = 200
+		hero.maxSP = 200
+		hero.atk = 7
+		hero.def = 7
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 5 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 500
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 600
+		hero.maxHP = 600
+		hero.SP = 200
+		hero.maxSP = 200
+		hero.atk = 8
+		hero.def = 8
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 6 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 600
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 700
+		hero.maxHP = 700
+		hero.SP = 200
+		hero.maxSP = 200
+		hero.atk = 9
+		hero.def = 9
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 7 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 700
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 800
+		hero.maxHP = 800
+		hero.SP = 200
+		hero.maxSP = 200
+		hero.atk = 10
+		hero.def = 10
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 8 then
 		hero.level = hero.level + 1
 		hero.experience = 0
 		hero.expForNextLevel = 800
 
-		hero.HP = 200
-		hero.maxHP = 200
-		hero.SP = 100
-		hero.maxSP = 100
-		hero.atk = 4
-		hero.def = 4
+		hero.HP = 900
+		hero.maxHP = 900
+		hero.SP = 200
+		hero.maxSP = 200
+		hero.atk = 11
+		hero.def = 11
 
 	elseif hero.experience >= hero.expForNextLevel and hero.level == 9 then
 		hero.level = hero.level + 1 -- Max level 9 + 1 = 10

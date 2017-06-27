@@ -320,90 +320,90 @@ local function insertPropertiesEnemy (animation, name, level)
 	animation.onCombat = false
 
 	if name == "lopunny" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 20 
+		animation.maxHP = 20 
+		animation.atk = 5 
+		animation.def = 0.5 
 		animation.alive = true
 		animation.experience = 25
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "venusaur" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 300
+		animation.maxHP = 300
+		animation.atk = 100
+		animation.def = 0.5 
 		animation.alive = true
-		animation.experience = 25
+		animation.experience = 500
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "wingull" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 10 
+		animation.maxHP = 10 
+		animation.atk = 5 
+		animation.def = 0.5 
 		animation.alive = true
 		animation.experience = 25
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "drifblim" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 200
+		animation.maxHP = 200
+		animation.atk = 70
+		animation.def = 0.5 
 		animation.alive = true
-		animation.experience = 25
+		animation.experience = 250
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "cubone" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 80 
+		animation.maxHP = 80
+		animation.atk = 20
+		animation.def = 0.5 
 		animation.alive = true
 		animation.experience = 25
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "vespiquen" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 150
+		animation.maxHP = 150
+		animation.atk = 50
+		animation.def = 0.5 
 		animation.alive = true
-		animation.experience = 25
+		animation.experience = 75
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "butterfree" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 100
+		animation.maxHP = 100
+		animation.atk = 30
+		animation.def = 0.5
 		animation.alive = true
 		animation.experience = 25
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "yanmega" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 200
+		animation.maxHP = 200
+		animation.atk = 80
+		animation.def = 0.5
 		animation.alive = true
-		animation.experience = 25
+		animation.experience = 75
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
 	if name == "pikachu" then
-		animation.HP = 20 * level
-		animation.maxHP = 20 * level
-		animation.atk = 5 * level
-		animation.def = 0.5 * level
+		animation.HP = 10
+		animation.maxHP = 10
+		animation.atk = 7
+		animation.def = 0.5
 		animation.alive = true
 		animation.experience = 25
 		animation.speedAttack = 2 -- Seconds between each attack
