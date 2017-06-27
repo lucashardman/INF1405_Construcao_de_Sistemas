@@ -108,7 +108,7 @@ local function gameController( sheet_hero )
 		end
 		Runtime:addEventListener("enterFrame", updateEnemyHPbar)
 	end
-	
+
 	local function respawEnemies()
 		
 		if numEnemies < 8 then

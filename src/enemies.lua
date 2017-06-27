@@ -329,6 +329,86 @@ local function insertPropertiesEnemy (animation, name, level)
 		animation.speedAttack = 2 -- Seconds between each attack
 	end
 
+	if name == "venusaur" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "wingull" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "drifblim" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "cubone" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "vespiquen" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "butterfree" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "yanmega" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
+	if name == "pikachu" then
+		animation.HP = 20 * level
+		animation.maxHP = 20 * level
+		animation.atk = 5 * level
+		animation.def = 0.5 * level
+		animation.alive = true
+		animation.experience = 25
+		animation.speedAttack = 2 -- Seconds between each attack
+	end
+
 	return animation
 end
 
@@ -341,29 +421,77 @@ local function generateEnemies (level, x, y, scale)
 	enemySorted = 0
 
 	if level == 1 then
-		enemySorted = math.random(1, 1)
-	elseif level == 2 then
-		enemySorted = math.random(1, 2)
-	elseif level == 3 then
 		enemySorted = math.random(1, 3)
-	elseif level == 4 then
+	elseif level == 2 then
 		enemySorted = math.random(1, 4)
+	elseif level == 3 then
+		enemySorted = math.random(2, 5)
+	elseif level == 4 then
+		enemySorted = math.random(3, 5)
 	elseif level == 5 then
-		enemySorted = math.random(1, 5)
+		enemySorted = math.random(4, 6)
 	elseif level == 6 then
-		enemySorted = math.random(1, 6)
+		enemySorted = math.random(4, 6)
 	elseif level == 7 then
-		enemySorted = math.random(1, 7)
+		enemySorted = math.random(4, 7)
 	elseif level == 8 then
-		enemySorted = math.random(1, 8)
+		enemySorted = math.random(6, 8)
 	elseif level == 9 then
-		enemySorted = math.random(1, 9)
+		enemySorted = math.random(6, 9)
 	end
 
 	if (enemySorted == 1) then
 
 		enemy = "lopunny"
 		animationEnemy = createEnemy(80, 25, 27, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 2) then
+		enemy = "pikachu"
+		animationEnemy = createEnemy(907, 753, 19, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 3) then
+		enemy = "wingull"
+		animationEnemy = createEnemy(575, 619, 26, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 4) then
+		enemy = "cubone"
+		animationEnemy = createEnemy(705, 412, 17, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 5) then
+		enemy = "butterfree"
+		animationEnemy = createEnemy(478, 143, 25, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 6) then
+		enemy = "vespiquen"
+		animationEnemy = createEnemy(303, 21, 28, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 7) then
+		enemy = "yanmega"
+		animationEnemy = createEnemy(432, 247, 42, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 8) then
+		enemy = "drifblim"
+		animationEnemy = createEnemy(309, 250, 29, scale)
+		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
+		walk(animationEnemy, x, y, 1)
+
+	elseif (enemySorted == 9) then
+		enemy = "venusaur"
+		animationEnemy = createEnemy(530, 26, 29, scale)
 		animationEnemy = insertPropertiesEnemy(animationEnemy, enemy, level)
 		walk(animationEnemy, x, y, 1)
 	end
