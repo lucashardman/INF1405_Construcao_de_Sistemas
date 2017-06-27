@@ -7,6 +7,7 @@ local enemies = require "enemies"
 local collisionHandler = require "collisionHandler"
 local combat = require "combat"
 local status = require "status"
+local widget = require "widget"
 
 local M = {}
 
@@ -226,6 +227,113 @@ local function gameController( sheet_hero )
 	end
 	Runtime:addEventListener("enterFrame", enemyAttack)
 	
+
+	local function endGame ()
+		if hero.level == 10 then
+			--local background = display.newImage("images/hipster_hexagon_blur_pattern-1145.jpg")
+			local background = display.newImage("images/other/grey.png")
+			background.x = display.contentCenterX, background.contentCenterX
+			background.y = display.contentCenterY, background.contentCenterY 
+			background.width = 1024
+			background.height = 768
+
+			--local logo = display.newImage("images/coronalabs_logo@2x.png")
+			local logo = display.newText( "~ The End ~", 200, 100, "images/other/RPGSystem.ttf", 46 )
+			logo.x = display.contentCenterX, logo.contentCenterX
+			logo.y = 100
+			hero.level = 0
+			
+			-- This will declare the start button 
+			local exitButton
+
+			-- This is what will run when we press our button
+			local exitButtonEvent = function (event )
+			    if (event.phase == "ended") then
+			    	os.exit()
+			    end
+			end
+
+			-- This will create the start button previously declared
+			exitButton=widget.newButton{
+
+			        -- The id can be used to tell you what button was pressed in your button event
+				id = "playButton",
+			        -- This is the text label to put on the button
+				label = "Exit",
+					-- This sets the color of the text
+				labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
+					-- This loads the font file
+				font = "images/other/rpg.ttf",
+					-- This sets the font size
+				fontSize = 56,
+			        -- Emboss can be true or false, tells it to make the label look embossed/inset
+				emboss = true,
+			        -- The border around the outside of the button
+				strokeWidth = 4,
+			        -- How round to make the corners
+				cornerRadius = 8,
+					-- This tells it what function to call when you press the button
+			    onEvent = exitButtonEvent
+			}
+
+			exitButton.x = display.contentCenterX, logo.contentCenterX
+			exitButton.y = 600
+			
+		end
+
+		if hero.HP == 0 then
+			--local background = display.newImage("images/hipster_hexagon_blur_pattern-1145.jpg")
+			local background = display.newImage("images/other/grey.png")
+			background.x = display.contentCenterX, background.contentCenterX
+			background.y = display.contentCenterY, background.contentCenterY 
+			background.width = 1024
+			background.height = 768
+
+			--local logo = display.newImage("images/coronalabs_logo@2x.png")
+			local logo = display.newText( "GAME OVER!", 200, 100, "images/other/RPGSystem.ttf", 46 )
+			logo.x = display.contentCenterX, logo.contentCenterX
+			logo.y = 100
+			hero.HP = 0
+
+			-- This will declare the start button 
+			local exitButton
+
+			-- This is what will run when we press our button
+			local exitButtonEvent = function (event )
+			    if (event.phase == "ended") then
+			    	os.exit()
+			    end
+			end
+
+			-- This will create the start button previously declared
+			exitButton=widget.newButton{
+
+			        -- The id can be used to tell you what button was pressed in your button event
+				id = "playButton",
+			        -- This is the text label to put on the button
+				label = "Exit",
+					-- This sets the color of the text
+				labelColor = { default={ 1, 1, 1 }, over={ 0, 0, 0, 0.5 } },
+					-- This loads the font file
+				font = "images/other/rpg.ttf",
+					-- This sets the font size
+				fontSize = 56,
+			        -- Emboss can be true or false, tells it to make the label look embossed/inset
+				emboss = true,
+			        -- The border around the outside of the button
+				strokeWidth = 4,
+			        -- How round to make the corners
+				cornerRadius = 8,
+					-- This tells it what function to call when you press the button
+			    onEvent = exitButtonEvent
+			}
+
+			exitButton.x = display.contentCenterX, logo.contentCenterX
+			exitButton.y = 600
+		end
+	end
+	Runtime:addEventListener("enterFrame", endGame)
+
 	-- Creates status window
 	status.statusWindow(hero)
 
